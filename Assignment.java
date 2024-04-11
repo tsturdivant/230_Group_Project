@@ -5,15 +5,15 @@ public class Assignment {
     private Date assignmentDueDate; 
 
     public Assignment(String name, Date dueDate) {
-        this.assignmentName = name; 
-        this.assignmentDueDate = dueDate; 
+        assignmentName = name; 
+        assignmentDueDate = dueDate; 
     }
 
     public String getAssignmentName() {
-        return this.assignmentName; 
+        return assignmentName; 
     }
 
     public Date getAssignmentDueDate() {
-        return this.assignmentDueDate; 
+        return assignmentDueDate; 
     }
 }
