@@ -7,6 +7,6 @@ public class Link {
     }
 
     public void displayLink() {
-        System.out.print(dData + " "); 
+        System.out.println(dData.getAssignmentName() + " "); 
     }
 }

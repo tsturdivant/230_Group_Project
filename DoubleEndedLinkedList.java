@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.Date;
 
 public class DoubleEndedLinkedList {
     private Link first; 
@@ -13,44 +13,53 @@ public class DoubleEndedLinkedList {
         return first==null; 
     }
 
-    public void insertFirst(Assignment dd) { 
+    public void insert(Assignment dd) {
         Link newLink = new Link(dd); 
 
-        if (isEmpty()){
-            last = newLink; 
-        }
-        newLink.next = first; 
-        first = newLink; 
-    }
-
-    public void insertLast(Assignment dd) {
-        Link newLink = new Link(dd); 
         if (isEmpty()) {
             first = newLink; 
-        } else {
-            last.next = newLink; 
+            return; 
         }
-        last = newLink; 
-    }
+        
+        Link current = first;
+        Link previous = null;
 
-    public void insert(Assignment dd) {
-
-    }
+        while (current != null) {
+            if (current.dData.getAssignmentDueDate().before(dd.getAssignmentDueDate()) //if current's date is before new assignment's date
+                        && current.next == null) { //and next's is null, we insert as the last element
+                current.next = newLink; 
+                last = newLink; 
+                return; 
+            }
+            else if (current.dData.getAssignmentDueDate().before(dd.getAssignmentDueDate()) //if current's date is before new assignment's date
+                        && current.next.dData.getAssignmentDueDate().after(dd.getAssignmentDueDate())) { //and next's date is after new assignment's date, we insert there
+                newLink.next = current.next; 
+                current.next = newLink; 
+                return; 
+            } else if (current.dData.getAssignmentDueDate().after(dd.getAssignmentDueDate())) { // if current's date is after 
+                newLink.next = current; 
+                if (current == first) {
+                    first = newLink; 
+                }
+                if (previous != null) {
+                    previous.next = newLink; 
+                }
+                return; 
+            }
+            previous = current; 
+            current = current.next; 
+        }
+    } // end insert()
 
     public void displayList() {
-        System.out.print("List (first-->last): ");
+        System.out.print("List (first-->last): \n");
         Link current = first; 
         while(current != null) {
             current.displayLink();
             current = current.next; 
         }
-        System.out.println("");
+        System.out.println(" ");
     }
-
-
-    // public List getLinkedList() {
-    //     return LinkedList; 
-    // }
 
     public void delete(Assignment assignment) {
         return; 
