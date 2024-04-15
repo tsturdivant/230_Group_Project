@@ -62,10 +62,46 @@ public class DoubleEndedLinkedList {
     }
 
     public void delete(Assignment assignment) {
+        Link current = first;
+
+        while(current.dData != assignment) { //until assignment is found
+            current = current.next; // move to next assignment
+            if (current.next == null){ // assignment not found
+                return null;
+            }
+        }
+        
+        // adjust all assignments based on deleted link
+        if(current == first) { // if it is first assignment
+            first = current.next; // new first assignment is old next assignment 
+        }
+        else { // not first assignment
+            current.previous.next = current.next; // old previous assignment is old next assignment
+        }
+
+        if(current == last) { // if assignment is last
+            last == current.previous; // old previous is assignment is now the new last assignment
+        }
+        else { // not last
+            current.next.previous = current.previous; //old next assignment --> old previous assignment
+        }
+
         return; 
     }
 
     public Assignment search(Assignment assignment) {
-        return assignment; 
+        Link current = first; // sets current as first assignment
+        
+        while (current.dData != assignment && current.next != null) { // traverses linked list until assignment found
+            current = current.next                                    // or end of list is reached
+        }
+        if (current.dData != assignment) { // if assignment not found return null
+            return null
+        }
+        assignment = current; // if assignment is found set assignment as current
+        return assignment;
     }
+
+
+
 }
