@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class DoubleEndedLinkedList {
     private Link first; 
     private Link last; 
@@ -63,42 +61,36 @@ public class DoubleEndedLinkedList {
 
     public void delete(Assignment assignment) {
         Link current = first;
+        Link previous = null;
 
         while(current.dData != assignment) { //until assignment is found
+            previous = current; // set previous
             current = current.next; // move to next assignment
-            if (current.next == null){ // assignment not found
-                return null;
+            if (current == null){ // assignment not found
+                return;
             }
         }
         
         // adjust all assignments based on deleted link
         if(current == first) { // if it is first assignment
             first = current.next; // new first assignment is old next assignment 
+            return; 
+        } else { // not first or last assignment
+            previous.next = current.next; // old previous assignment is old next assignment
+            return; 
         }
-        else { // not first assignment
-            current.previous.next = current.next; // old previous assignment is old next assignment
-        }
-
-        if(current == last) { // if assignment is last
-            last == current.previous; // old previous is assignment is now the new last assignment
-        }
-        else { // not last
-            current.next.previous = current.previous; //old next assignment --> old previous assignment
-        }
-
-        return; 
     }
 
     public Assignment search(Assignment assignment) {
         Link current = first; // sets current as first assignment
         
         while (current.dData != assignment && current.next != null) { // traverses linked list until assignment found
-            current = current.next                                    // or end of list is reached
+            current = current.next;                                   // or end of list is reached
         }
         if (current.dData != assignment) { // if assignment not found return null
-            return null
+            return null;
         }
-        assignment = current; // if assignment is found set assignment as current
+        assignment = current.dData; // if assignment is found set assignment as current
         return assignment;
     }
 

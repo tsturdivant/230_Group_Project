@@ -23,5 +23,13 @@ public class TestApp {
         linkedList.insert(assignment6);
 
         linkedList.displayList();
+
+        System.out.println(linkedList.search(assignment2).getAssignmentName());
+        System.out.println(); 
+
+        linkedList.displayList();
+
+        linkedList.delete(assignment6);
+        linkedList.displayList();
     }
 }
